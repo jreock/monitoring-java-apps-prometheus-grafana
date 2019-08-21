@@ -1,0 +1,24 @@
+groups:
+- name: activemq
+  rules:
+  - alert: DLQ
+    expr: org_apache_activemq_Broker_DLQ > 1
+    for: 1m
+    labels:
+       severity: minor
+       service: activemq
+    annotations:
+       summary: A message has gone into the DLQ
+       dashboard: http://192.168.40.120:3000/dashboard/db/activemq-broker
+       impact: A message has been misfired
+       runbook:  http://activemq.apache.org
+  - alert: Broker Down
+    expr: up{job="activemq"} == 0
+    labels:
+       severity: major
+       service: activemq
+    annotations:
+       summary: The broker has crashed
+       dashboard: http://192.168.40.120:3000/dashboard/db/activemq-broker
+       impact: Broker is down
+       runbook:  http://activemq.apache.org
