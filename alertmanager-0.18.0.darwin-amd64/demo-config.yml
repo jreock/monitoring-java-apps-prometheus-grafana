@@ -1,0 +1,25 @@
+global:
+  smtp_smarthost: 'localhost:25'
+  smtp_from: 'alertmanager@monitoring.com'
+
+route:
+  receiver: 'default-receiver'
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  group_by: [cluster, alertname]
+  routes:
+  - receiver: 'slack'
+    group_wait: 10s
+    match_re:
+      service: activemq
+
+receivers:
+  - name: 'default-receiver'
+    email_configs:
+    - to: '[INSERT TARGET EMAIL]'
+
+  - name: 'slack'
+    slack_configs:
+    - api_url: https://hooks.slack.com/services/[INSERT REST OF YOUR WEBHOOK HERE]
+      channel: '#general'
