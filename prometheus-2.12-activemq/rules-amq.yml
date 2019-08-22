@@ -2,8 +2,8 @@ groups:
 - name: activemq
   rules:
   - alert: DLQ
-    expr: org_apache_activemq_Broker_DLQ > 1
-    for: 1m
+    expr: org_apache_activemq_Broker_DLQ{brokerName="localhost",destinationName="ActiveMQ.DLQ",destinationType="Queue",instance="localhost:8080",job="activemq"} > 0
+    for: 10s
     labels:
        severity: minor
        service: activemq

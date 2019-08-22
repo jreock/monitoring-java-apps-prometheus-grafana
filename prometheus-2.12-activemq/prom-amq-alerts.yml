@@ -1,5 +1,5 @@
 global:
-  scrape_interval:     15s 
+  scrape_interval:     5s 
   external_labels:
     monitor: 'activemq'
 
@@ -8,7 +8,7 @@ rule_files:
 
 scrape_configs:
   - job_name: 'activemq'
-    scrape_interval: 5s
+    scrape_interval: 1s
     static_configs:
       - targets: ['localhost:8080']
 
